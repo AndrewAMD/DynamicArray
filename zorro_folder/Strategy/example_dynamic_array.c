@@ -39,7 +39,7 @@ int main()
 
 	int size = darr_size(h);
 	printf("\nsize: %d",size);
-	// EXAMPLE* pEx = (EXAMPLE*)darr_pointer(h, 0);
+	
 	int i; EXAMPLE* pEx;
 	for (i = 0; i < size; i++)
 	{
@@ -61,7 +61,7 @@ int main()
 		if (a[0] == '\0') a[0]='_';
 		printf("%s",a);
 	}
-	//printf("\r\n");
+	
 	printf("\ndone!");
 	return 0;
 }
