@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DynamicArray", "DynamicArray\DynamicArray.vcxproj", "{D77F4310-9EBF-41B5-BC40-8E97C1754A39}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DynamicArrayTester", "DynamicArrayTester\DynamicArrayTester.vcxproj", "{ACABAE02-B0D0-407D-9262-5EC7508596E0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D77F4310-9EBF-41B5-BC40-8E97C1754A39} = {D77F4310-9EBF-41B5-BC40-8E97C1754A39}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D77F4310-9EBF-41B5-BC40-8E97C1754A39}.Debug|x64.ActiveCfg = Debug|x64
+		{D77F4310-9EBF-41B5-BC40-8E97C1754A39}.Debug|x64.Build.0 = Debug|x64
+		{D77F4310-9EBF-41B5-BC40-8E97C1754A39}.Debug|x86.ActiveCfg = Debug|Win32
+		{D77F4310-9EBF-41B5-BC40-8E97C1754A39}.Debug|x86.Build.0 = Debug|Win32
+		{D77F4310-9EBF-41B5-BC40-8E97C1754A39}.Release|x64.ActiveCfg = Release|x64
+		{D77F4310-9EBF-41B5-BC40-8E97C1754A39}.Release|x64.Build.0 = Release|x64
+		{D77F4310-9EBF-41B5-BC40-8E97C1754A39}.Release|x86.ActiveCfg = Release|Win32
+		{D77F4310-9EBF-41B5-BC40-8E97C1754A39}.Release|x86.Build.0 = Release|Win32
+		{ACABAE02-B0D0-407D-9262-5EC7508596E0}.Debug|x64.ActiveCfg = Debug|x64
+		{ACABAE02-B0D0-407D-9262-5EC7508596E0}.Debug|x64.Build.0 = Debug|x64
+		{ACABAE02-B0D0-407D-9262-5EC7508596E0}.Debug|x86.ActiveCfg = Debug|Win32
+		{ACABAE02-B0D0-407D-9262-5EC7508596E0}.Debug|x86.Build.0 = Debug|Win32
+		{ACABAE02-B0D0-407D-9262-5EC7508596E0}.Release|x64.ActiveCfg = Release|x64
+		{ACABAE02-B0D0-407D-9262-5EC7508596E0}.Release|x64.Build.0 = Release|x64
+		{ACABAE02-B0D0-407D-9262-5EC7508596E0}.Release|x86.ActiveCfg = Release|Win32
+		{ACABAE02-B0D0-407D-9262-5EC7508596E0}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D994E0DB-467F-44E4-8108-4E4160B36389}
+	EndGlobalSection
+EndGlobal
