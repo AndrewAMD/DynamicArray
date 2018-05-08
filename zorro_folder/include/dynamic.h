@@ -50,5 +50,5 @@ API(darr_destroy,DynamicArray)
 
 // De-allocates **all** dynamic vectors from memory.
 // After this function, **all handles** will no longer be recognized.
-void __cdecl darr_destroy_all(int handle);
+void __cdecl darr_destroy_all();
 API(darr_destroy_all,DynamicArray)
