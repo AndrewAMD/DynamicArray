@@ -47,3 +47,8 @@ API(darr_reserve,DynamicArray)
 // Returns true if completed, false if handle not recognized.
 bool __cdecl darr_destroy(int handle);
 API(darr_destroy,DynamicArray)
+
+// De-allocates **all** dynamic vectors from memory.
+// After this function, **all handles** will no longer be recognized.
+void __cdecl darr_destroy_all(int handle);
+API(darr_destroy_all,DynamicArray)

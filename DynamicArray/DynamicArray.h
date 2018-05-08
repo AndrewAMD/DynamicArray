@@ -44,3 +44,6 @@ DLLFUNC_C bool darr_reserve(int handle, int nSize);
 // Returns true if completed, false if handle not recognized.
 DLLFUNC_C bool darr_destroy(int handle);
 
+// De-allocates **all** dynamic vectors from memory.
+// After this function, **all handles** will no longer be recognized.
+DLLFUNC_C void darr_destroy_all(int handle);
