@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "DynamicArray.h"
+#include "dynamic.h"
 #include <vector>
 #include <deque>
 typedef std::vector<char> v_char;
@@ -36,7 +36,7 @@ private:
 std::deque<DArray> dq_da;
 
 
-DLLFUNC_C int darr_new(int sizeof_type)
+int da_new(int sizeof_type)
 {
 	try {
 		if (sizeof_type <= 0) return 0;
@@ -46,18 +46,29 @@ DLLFUNC_C int darr_new(int sizeof_type)
 	}
 	catch (...) { return 0; }
 }
-DLLFUNC_C int darr_size(int handle)
+int da_size(int handle)
 {
 	try {
 		for (auto& da : dq_da)
 		{
-			if (da.get_handle() == handle) return da.darray.size() / da.get_sizeof_type();
+			if (da.get_handle() == handle) return (int)(da.darray.size() / da.get_sizeof_type());
 		}
 		return 0; // no matches
 	}
 	catch (...) { return 0; }
 }
-DLLFUNC_C int darr_typesize(int handle)
+int da_capacity(int handle)
+{
+	try {
+		for (auto& da : dq_da)
+		{
+			if (da.get_handle() == handle) return (int)(da.darray.capacity() / da.get_sizeof_type());
+		}
+		return 0; // no matches
+	}
+	catch (...) { return 0; }
+}
+int da_typesize(int handle)
 {
 	try {
 		for (auto& da : dq_da)
@@ -68,31 +79,15 @@ DLLFUNC_C int darr_typesize(int handle)
 	}
 	catch (...) { return 0; }
 }
-DLLFUNC_C int darr_push_back(int handle, void* pElement)
+int da_push_back(int handle, void* pElement)
 {
-	try {
-		if (!pElement) return 0;
-		char* pChar = (char*)pElement;
-		for (auto& da : dq_da)
-		{
-			if (da.get_handle() == handle)
-			{
-				// make sure enough memory is allocated for the entire push back operation
-				if (da.darray.capacity() < (da.darray.size() + da.get_sizeof_type()))
-					da.darray.reserve(da.darray.size() + da.get_sizeof_type());
-				// push back all bytes one at a time
-				for (int i = 0; i < da.get_sizeof_type(); i++)
-				{
-					da.darray.push_back(pChar[i]);
-				}
-				return (da.darray.size() / da.get_sizeof_type());
-			}
-		}
-		return 0; // fail case
-	}
-	catch (...) { return 0; }
+	return da_insert(handle, pElement, da_size(handle), 1);
 }
-DLLFUNC_C void* darr_pointer(int handle, int nElement)
+
+
+
+
+void* da_data(int handle, int nElement)
 {
 	try {
 		char *ptr0 = NULL, *ptrN = NULL;
@@ -109,7 +104,7 @@ DLLFUNC_C void* darr_pointer(int handle, int nElement)
 	catch (...) { return NULL; }
 
 }
-DLLFUNC_C bool darr_resize(int handle, int nSize)
+bool da_resize(int handle, int nSize)
 {
 	try {
 		for (auto& da : dq_da)
@@ -125,7 +120,7 @@ DLLFUNC_C bool darr_resize(int handle, int nSize)
 	catch (...) { return false; }
 
 }
-DLLFUNC_C bool darr_reserve(int handle, int nSize)
+bool da_reserve(int handle, int nSize)
 {
 	try {
 		for (auto& da : dq_da)
@@ -140,33 +135,162 @@ DLLFUNC_C bool darr_reserve(int handle, int nSize)
 	}
 	catch (...) { return false; }
 }
-DLLFUNC_C bool darr_destroy(int handle)
+bool da_delete(int handle)
 {
 	try {
-		int i = 0; bool found = false;
+		int i = 0;
 		for (auto& da : dq_da)
 		{
 			if (da.get_handle() == handle)
 			{
-				found = true;
-				break;
+				dq_da.erase(dq_da.begin() + i);
+				return true;
 			}
 			++i;
 		}
-		if (!found) return false;
-		else
-		{
-			dq_da.erase(dq_da.begin() + i);
-			return true;
-		}
+		return false;
 	}
 	catch (...) { return false; }
 }
-DLLFUNC_C void darr_destroy_all()
+void da_delete_all()
 {
 	try {
 		dq_da.clear();
 	}
 	catch (...) { return; }
+}
+
+int da_insert(int handle, void* pElement, int nPosition, int numElements)
+try {
+
+	if (numElements <= 0) return 0;
+	if (!pElement) return 0;
+
+	char* pChar = (char*)pElement;
+	for (auto& da : dq_da)
+	{
+		if (da.get_handle() == handle)
+		{
+			// check that position is valid: 
+			// must be: 0 <= (nPosition * sizeof type) <= (size before operation)
+			if (nPosition < 0) return 0;
+			if ((nPosition * da.get_sizeof_type()) > (int)da.darray.size()) return 0;
+
+			// make sure enough memory is allocated for the entire push back operation
+			if (da.darray.capacity() < (da.darray.size() + (numElements * da.get_sizeof_type())))
+				da.darray.reserve(da.darray.size() + (numElements * da.get_sizeof_type()));
+			
+			//// insert all bytes at the same time
+			v_char::iterator it = da.darray.begin();
+			it += nPosition * da.get_sizeof_type();
+
+			da.darray.insert(it, (char*)pElement, (char*)pElement + (numElements * da.get_sizeof_type()));
+			
+			return (int)(da.darray.size() / da.get_sizeof_type());
+
+		}
+	}
+	return 0; // fail case
+}
+catch (...) { return 0; }
+
+bool da_shrink_to_fit(int handle)
+{
+	try {
+		for (auto& da : dq_da)
+		{
+			if (handle != da.get_handle()) continue;
+			da.darray.shrink_to_fit();
+			return true;
+		}
+		return false;
+	}
+	catch (...) { return false; }
+}
+
+int da_erase(int handle, int nPosition, int numElements)
+{
+	try
+	{
+		if (numElements <= 0) return 0;
+		
+		for (auto& da : dq_da)
+		{
+			if (da.get_handle() == handle)
+			{
+				// check that position is valid: 
+				// must be: 0 <= (nPosition * sizeof type) <= (size before operation)
+				if (nPosition < 0) return 0;
+				if ((nPosition * da.get_sizeof_type()) > (int)da.darray.size()) return 0;
+
+				// check that final element to be deleted is valid:
+				// must be: 0 <= (nPosition * sizeof type) <= (size before operation)
+				int nEnd = nPosition + numElements;
+				if (nEnd < 0) return 0;
+				if ((nEnd * da.get_sizeof_type()) > (int)da.darray.size()) return 0;
+
+
+				// make sure enough memory is allocated for the entire push back operation
+				if (da.darray.capacity() < (da.darray.size() + (numElements * da.get_sizeof_type())))
+					da.darray.reserve(da.darray.size() + (numElements * da.get_sizeof_type()));
+
+				v_char::iterator it = da.darray.begin();
+				it += nPosition * da.get_sizeof_type();
+				da.darray.erase(it, it + (numElements * da.get_sizeof_type()));
+
+				//da.darray.insert(it, (char*)pElement, (char*)pElement + (numElements * da.get_sizeof_type()));
+
+				return (int)(da.darray.size() / da.get_sizeof_type());
+
+			}
+		}
+		return 0;
+	}
+	catch (...) { return 0; }
+}
+
+int da_pop_back(int handle)
+{
+	return da_resize(handle, da_size(handle) - 1);
+}
+
+bool da_clear(int handle)
+{
+	try {
+		for (auto& da : dq_da)
+		{
+			if (handle != da.get_handle()) continue;
+			da.darray.clear();
+			return true;
+		}
+		return false;
+	}
+	catch (...) { return false; }
+}
+
+bool da_exists(int handle)
+{
+	if (da_typesize(handle)) return true;
+	else return false;
+}
+
+bool da_is_empty(int handle)
+{
+	if (!da_exists(handle)) return false;
+	else if (!da_size(handle)) return true;
+	else return false;
+}
+
+int da_max_size(int handle)
+{
+	try {
+		for (auto& da : dq_da)
+		{
+			if (handle != da.get_handle()) continue;
+			return (int)(da.darray.max_size() / da.get_sizeof_type());
+		}
+		return 0;
+	}
+	catch (...) { return 0; }
 }
 
