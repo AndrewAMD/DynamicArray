@@ -40,9 +40,9 @@ void demo1()
 	
 	int h = da_new(sizeof(EXAMPLE));
 	
-	// declare four blank structs
-	EXAMPLE e1, e2; // single structs
-	EXAMPLE ea[2];  // array of two structs
+	// declare two structs and one array of two structs, and set them to blank.
+	EXAMPLE e1, e2;
+	EXAMPLE ea[2];
 	memset(&e1, 0, sizeof(EXAMPLE));
 	memset(&e2, 0, sizeof(EXAMPLE));
 	memset(ea, 0, 2 * sizeof(EXAMPLE));
