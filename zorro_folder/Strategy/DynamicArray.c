@@ -59,7 +59,7 @@ void demo1()
 	da_push_back(h, &e2);
 	da_insert(h,ea,da_size(h),2); // insert 2-element-array to position# "size" (back of array)
 
-	// the dynamic array knows that only four elements e,
+	// the dynamic array knows that only four elements exist,
 	// even though we allocated enough memory for five.
 	int size = da_size(h);
 	printf("\nsize: %d",size);
