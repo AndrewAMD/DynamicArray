@@ -177,10 +177,6 @@ try {
 			// must be: 0 <= (nPosition * sizeof type) <= (size before operation)
 			if (nPosition < 0) return 0;
 			if ((nPosition * da.get_sizeof_type()) > (int)da.darray.size()) return 0;
-
-			// make sure enough memory is allocated for the entire push back operation
-			if (da.darray.capacity() < (da.darray.size() + (numElements * da.get_sizeof_type())))
-				da.darray.reserve(da.darray.size() + (numElements * da.get_sizeof_type()));
 			
 			//// insert all bytes at the same time
 			v_char::iterator it = da.darray.begin();
@@ -231,16 +227,9 @@ int da_erase(int handle, int nPosition, int numElements)
 				if (nEnd < 0) return 0;
 				if ((nEnd * da.get_sizeof_type()) > (int)da.darray.size()) return 0;
 
-
-				// make sure enough memory is allocated for the entire push back operation
-				if (da.darray.capacity() < (da.darray.size() + (numElements * da.get_sizeof_type())))
-					da.darray.reserve(da.darray.size() + (numElements * da.get_sizeof_type()));
-
 				v_char::iterator it = da.darray.begin();
 				it += nPosition * da.get_sizeof_type();
 				da.darray.erase(it, it + (numElements * da.get_sizeof_type()));
-
-				//da.darray.insert(it, (char*)pElement, (char*)pElement + (numElements * da.get_sizeof_type()));
 
 				return (int)(da.darray.size() / da.get_sizeof_type());
 
