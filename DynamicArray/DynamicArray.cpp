@@ -107,6 +107,7 @@ void* da_data(int handle, int nElement)
 bool da_resize(int handle, int nSize)
 {
 	try {
+		if(da_size(handle) <=0) return false;
 		for (auto& da : dq_da)
 		{
 			if (da.get_handle() == handle)
@@ -123,6 +124,7 @@ bool da_resize(int handle, int nSize)
 bool da_reserve(int handle, int nSize)
 {
 	try {
+		if(da_size(handle) <=0) return false;
 		for (auto& da : dq_da)
 		{
 			if (da.get_handle() == handle)
@@ -251,6 +253,7 @@ int da_erase(int handle, int nPosition, int numElements)
 
 int da_pop_back(int handle)
 {
+	if(!da_size(handle)) return 0;
 	return da_resize(handle, da_size(handle) - 1);
 }
 
