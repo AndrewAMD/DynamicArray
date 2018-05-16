@@ -107,7 +107,7 @@ void* da_data(int handle, int nElement)
 bool da_resize(int handle, int nSize)
 {
 	try {
-		if(da_size(handle) <=0) return false;
+		if(nSize < 0) return false;
 		for (auto& da : dq_da)
 		{
 			if (da.get_handle() == handle)
@@ -124,7 +124,7 @@ bool da_resize(int handle, int nSize)
 bool da_reserve(int handle, int nSize)
 {
 	try {
-		if(da_size(handle) <=0) return false;
+		if(nSize < 0) return false;
 		for (auto& da : dq_da)
 		{
 			if (da.get_handle() == handle)
