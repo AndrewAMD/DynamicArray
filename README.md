@@ -9,4 +9,4 @@ Currently, the library is meant to be built in Visual Studio 2017, though it sho
 To build a DLL for Zorro, simply open the solution file, and build in the Release/x86 mode.
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
