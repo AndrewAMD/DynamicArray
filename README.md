@@ -25,7 +25,7 @@ To install DynamicArray in Zorro, the procedure is simple:
 1. Build DynamicArray.dll
 2. Copy the newly built DynamicArray.dll to your Zorro folder.
 3. Copy dynamic.h to your Zorro/include folder.
-4. Optionally, copy Zorro/Dynamic.c to your Zorro/Strategy folder.  This file demonstrates the functionality of the library.
+4. Optionally, copy Zorro/Dynamic.c to your Zorro/Strategy folder.  This script demonstrates the functionality of the library.
 
 ## License
 
