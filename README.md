@@ -1,6 +1,6 @@
 # DynamicArray
 
-This is a basic library that allows one to easily create dynamic arrays using a C interface.  Actually, it was intended as a DLL plug-in for Zorro Trading Automaton.  The backend was written in Win32 C++17 using Visual Studio. Its only dependency is the STL library.
+This is a basic library that allows one to easily create dynamic arrays using a C interface.  Actually, it was intended as a DLL plug-in for the Zorro Trading Automaton.  The backend was written in Win32 C++17 using Visual Studio. Its only dependency is the STL library.
 
 ## What This Library Does
 
