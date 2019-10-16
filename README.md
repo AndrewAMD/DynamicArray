@@ -9,7 +9,7 @@ This is a basic library that allows one to easily create dynamic arrays using a 
 * When you create an array, you define its element size permanently. (For example, sizeof(int) for a dynamic array of ints, or sizeof(STRUCTNAME) for an array of STRUCTNAMEs.)
 * You can track an array with a handler, returned from da_new().
 * You are advised to delete any dynamic array no longer needed.  Simply call da_delete(h), where **h** is the handler.
-* You also have the option of clearing **all** dynamic arrays.  Simply call da_delete_all().  It will clear all dynamic arrays from the stack, no exceptions.
+* You also have the option of clearing **all** dynamic arrays.  Simply call da_delete_all().  It will clear all dynamic arrays from memory, no exceptions.
 * All of the remaining functions are simply wrappers for the std::vector library.  You can insert elements or arrays of elements at any location in a given dynamic array. You can erase any element(s) at the beginning, middle, or end. You can resize, reserve, and shrink-to-fit.
 * All of the individual functions are documented in detail in the include/dynamic.h file.
 
